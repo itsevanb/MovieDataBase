@@ -1,5 +1,5 @@
 from flask import Flask, redirect, render_template, request, url_for, session
-from movie_web_app.datamanager.json_data_manager import JSONDataManager
+from movieDB.json_data_manager import JSONDataManager
 import requests
 from werkzeug.security import check_password_hash
 import os

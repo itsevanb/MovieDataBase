@@ -1,1 +1,19 @@
-[]
+[
+    {
+        "id": 1,
+        "name": "test",
+        "username": "test",
+        "password": "pbkdf2:sha256:600000$ohdl4JxxFXPu6GF5$644e99318979e8f48371ccbd76b123e522f1660d2ed3e161c1a7c0135ddbf397",
+        "bio": "hi there! welcome to my movie app :)",
+        "movies": [
+            {
+                "id": 1,
+                "title": "The Matrix",
+                "year": 1999,
+                "rating": 8.7,
+                "poster": "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg",
+                "plot": "Thomas A. Anderson is a man living two lives. By day he is an average computer programmer and by night a hacker known as Neo. Neo has always questioned his reality, but the truth is far beyond his imagination. Neo finds himself targeted by the police when he is contacted by Morpheus, a legendary computer hacker branded a terrorist by the government. As a rebel against the machines, Neo must confront the agents: super-powerful computer programs devoted to stopping Neo and the entire human rebellion."
+            }
+        ]
+    }
+]

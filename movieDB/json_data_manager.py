@@ -7,7 +7,7 @@ class JSONDataManager(DataManagerInterface):
 
     def __init__(self, file_name):
         """Initialize the JSONDataManager class with the JSON file name."""
-        self.file_name = 'movie_web_app/datamanager/' + file_name
+        self.file_name = 'MovieDB/' + file_name
 
     def _read_data(self):
         """Read data from the JSON file and return as a list."""
