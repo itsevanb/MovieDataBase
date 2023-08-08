@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ user.username }}'s Profile - MovieWeb App</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <!-- icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #F3F3F3; /* Neutral background color */
+            font-family: 'Montserrat', sans-serif;
+            color: #14213D; /* Dark blue text color */
+        }
+
+        h1, h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: #4A7C59; /* Green color for heading */
+            padding-bottom: 15px;
+        }
+
+        .btn-custom {
+            background-color: #14213D; /* Dark blue button color */
+            border-color: #14213D;
+            color: white; /* White text on buttons */
+            width: 200px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #4A7C59; /* Green hover color for buttons */
+            border-color: #4A7C59;
+        }
+
+        .navbar {
+            background-color: #14213D; /* Dark blue navbar color */
+        }
+
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #14213D; /* Dark blue footer color */
+            color: white;
+            text-align: center;
+        }
+
+        .card {
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .card:hover .card-overlay {
+            height: 100%;
+        }
+
+        .card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+            width: 100%;
+            height: 0;
+            transition: .5s ease;
+        }
+
+        .card-overlay h5, .card-overlay p {
+            color: white;
+            padding: 10px;
+        }
+
+        .card-buttons {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .card-buttons a {
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ user.username }}'s Profile</h1>
+        <p>{{ user.bio }}</p>
+        <a href="{{ url_for('edit_profile', user_id=user.id) }}" class="btn btn-custom">Edit Profile</a>
+        <a href="{{ url_for ('home') }}" class="btn btn-custom"><i class="fas fa-home"></i></a>
+        <h2>My Movies</h2>
+        <a href="/add_movie" class="btn btn-custom">Add Movie</a> <!-- Button to add a movie -->
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for movie in movies %}
+                <div class="col">
+                    <div class="card h-100" onclick="toggleOverlay(this)">
+                        <img src="{{ movie.poster }}" class="card-img-top" alt="Movie Poster">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ movie.title }} ({{ movie.year }})</h5>
+                            <p class="card-text">Rating: {{ movie.rating }}</p>
+                        </div>
+                        <div class="card-overlay">
+                            <h5 class="card-title">{{ movie.title }} ({{ movie.year }})</h5>
+                            <p class="card-text">{{ movie.plot }}</p>
+                        </div>
+                        <div class="card-buttons" style="display: none;">
+                            <a href="{{ url_for('update_movie', movie_id=movie.id) }}" class="btn btn-custom mt-2">Update</a>
+                            <form method="POST" action="{{ url_for('delete_movie', movie_id=movie.id) }}">
+                                <button type="submit" class="btn btn-custom mt-2">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>        
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleOverlay(card) {
+            var overlay = card.querySelector('.card-overlay');
+            var buttons = card.querySelector('.card-buttons');
+            if (overlay.style.height === '100%') {
+                overlay.style.height = '0';
+                buttons.style.display = 'none';
+            } else {
+                overlay.style.height = '100%';
+                buttons.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
