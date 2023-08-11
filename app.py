@@ -4,7 +4,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy import create_engine
-from movieDB.models_data_manager import ModelsDataManager
+from movieDB.data_manager import data_manager
 from movieDB.models import UserProfile, User, Movie, Review, Base, engine
 import requests
 import os
@@ -17,8 +17,6 @@ app.secret_key = os.environ.get('SECRET_KEY')
 connection_string = 'mysql+pymysql://itsevanb:hellohello123@localhost/testdata'
 engine = create_engine(connection_string)
 db_session = Session(engine)
-
-data_manager = ModelsDataManager(db_session)
 
 """Raise Runtime Error if SECRET_KEY is not set."""
 if app.secret_key is None:
