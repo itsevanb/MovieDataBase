@@ -86,14 +86,30 @@
         .card-buttons a {
             margin: 0 5px;
         }
+
+        .profile-picture-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .profile-picture {
+            width: 200px;
+            height: 250px;
+            object-fit: cover;
+            border-radius:50%;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>{{ user.username }}'s Profile</h1>
-        <p>{{ user.bio }}</p>
+        <img src="{{ url_for('profile_picture', user_id=user.id) }}" alt="Profile Picture" class="profile-picture">
+        <p>{{ user.profile.bio }}</p>
+        <div class="d-flex flex column mb-3">
         <a href="{{ url_for('edit_profile', user_id=user.id) }}" class="btn btn-custom">Edit Profile</a>
         <a href="{{ url_for ('home') }}" class="btn btn-custom"><i class="fas fa-home"></i></a>
+        </div>
         <h2>My Movies</h2>
         <a href="/add_movie" class="btn btn-custom">Add Movie</a> <!-- Button to add a movie -->
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
@@ -107,9 +123,10 @@
                         </div>
                         <div class="card-overlay">
                             <h5 class="card-title">{{ movie.title }} ({{ movie.year }})</h5>
-                            <p class="card-text">{{ movie.plot }}</p>
+                            <p class="card-text">{{ movie.description }}</p>
                         </div>
                         <div class="card-buttons" style="display: none;">
+                            <a href="{{ url_for('review_movie', movie_id=movie.id) }}" class="btn btn-custom">Review this Movie</a>
                             <a href="{{ url_for('update_movie', movie_id=movie.id) }}" class="btn btn-custom mt-2">Update</a>
                             <form method="POST" action="{{ url_for('delete_movie', movie_id=movie.id) }}">
                                 <button type="submit" class="btn btn-custom mt-2">Delete</button>
