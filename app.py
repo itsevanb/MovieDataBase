@@ -118,8 +118,7 @@ def delete_movie(movie_id):
     if 'user_id' not in session:
         return redirect(url_for('login'))
     user_id = session['user_id']
-    movies = data_manager.get_user_movies(movie_id) #Get movie without filtering by user id
-    movie = movies[0] if movies else None
+    movie = data_manager.get_movie(movie_id) #Query the movie by its ID
     #Check if movie belongs to the logged in user
     if movie is None or movie.user_id != user_id:
         return render_template('error.html', error_message="You are not authorized to delete this movie")
