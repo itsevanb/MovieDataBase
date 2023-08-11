@@ -1,16 +1,16 @@
 from flask import Flask, redirect, render_template, request, url_for, session, Response
+from api import api_blueprint 
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy import create_engine
 from movieDB.models_data_manager import ModelsDataManager
-from movieDB.models import UserProfile, User, Movie, Review, Base
-from sqlalchemy.orm import sessionmaker
-from movieDB.models import engine
+from movieDB.models import UserProfile, User, Movie, Review, Base, engine
 import requests
 import os
 
 app = Flask(__name__)
+app.register_blueprint(api_blueprint) # Register the blueprint
 app.secret_key = os.environ.get('SECRET_KEY')
 
 # Database connection string

@@ -15,6 +15,14 @@ class User(Base):
     movies = relationship("Movie", backref="user")
     reviews = relationship("Review", back_populates="user")
 
+    # This is a helper method that will serialize our user object from sqlalchemy to a JSON object
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'username': self.username,
+        }
+
 # UserProfile Table
 class UserProfile(Base):
     __tablename__ = 'user_profiles'
@@ -22,6 +30,15 @@ class UserProfile(Base):
     user_id = Column(Integer, ForeignKey('users.id'), unique=True)
     bio = Column(String(500))
     profile_picture = Column(LargeBinary(length=2097152))  # 2 MB
+
+    # This is a helper method that will serialize our user object from sqlalchemy to a JSON object
+    def serialize(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'bio': self.bio,
+            'profile_picture': self.profile_picture,
+        }
 
 # Movies Table
 class Movie(Base):
@@ -35,6 +52,18 @@ class Movie(Base):
     poster = Column(String(255))
     reviews = relationship("Review", back_populates="movie")
 
+    # This is a helper method that will serialize our user object from sqlalchemy to a JSON object
+    def serialize(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'title': self.title,
+            'description': self.description,
+            'rating': self.rating,
+            'year': self.year,
+            'poster': self.poster,
+        }
+
 # Review Table
 class Review(Base):
     __tablename__ = 'reviews'
@@ -45,6 +74,16 @@ class Review(Base):
     rating = Column(Float) #Optional numerical rating
     user = relationship("User", back_populates="reviews")
     movie = relationship("Movie", back_populates="reviews")
+
+    # This is a helper method that will serialize our user object from sqlalchemy to a JSON object
+    def serialize(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'movie_id': self.movie_id,
+            'content': self.content,
+            'rating': self.rating,
+        }
 
 # Check if we are in production (PythonAnywhere) or development (local)
 environment = os.environ.get('ENV', 'development')
