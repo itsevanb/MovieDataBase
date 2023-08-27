@@ -94,7 +94,7 @@ class ModelsDataManager:
             self.session.delete(movie_to_remove)
             self.session.commit()
 
-    def get_movie(self, movie_id):
+    def get_movies(self, movie_id):
         """Return a specific movie based on its id."""
         return self.session.query(Movie).filter_by(id=movie_id).first()
 
